@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import logo from "./images/logo4.jpg";
@@ -5,17 +6,18 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { MdOutlineMic } from "react-icons/md";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import { CgProfile } from "react-icons/cg";
+import useSidebarStore from "../store/store";
 
 const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+    const { isOpen, toggleSidebar } = useSidebarStore();
   const toggleSearch = () => {
     setIsSearchOpen(!isSearchOpen);
   };
   return (
-    <div className="fixed top-0 px-4 text-white bg-black h-[56px] w-full flex justify-between items-center">
+    <div className="fixed top-0 px-4 text-white bg-[#0f0f0f] h-[56px] w-full flex justify-between items-center">
       <div className="w-full h-full gap-4 flex justify-start items-center">
-        <div className="hover:bg-[#ffffff2e] flex justify-center items-center h-[40px] w-[40px] rounded-full">
+        <div onClick={toggleSidebar} className="hover:bg-[#ffffff2e] flex justify-center items-center h-[40px] w-[40px] rounded-full">
         <RxHamburgerMenu className="text-white text-[22px]" />
         </div>
         <div className="h-20 w-24 flex justify-center items-center ">
