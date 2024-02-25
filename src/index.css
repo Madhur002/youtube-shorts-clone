@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +15,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+
+.custom-slider {
+  background-color: #fb0000; /* Set the background color of the slider track */
+  /* position: absolute !important; */
+  height: 3px;
+  border-bottom-left-radius: 16px ;
+  border-bottom-right-radius: 16px ;
+}
+
+
+.custom-slider::-moz-range-thumb {
+  /* Customize the appearance of the slider thumb in Mozilla browsers (Firefox) */
+  border: 2px solid #ffffff;
+  background-color: white;
+  height: 0;
+}
+
+.custom-slider::-moz-range-track { /* Optional customization for the track */
+  background-color: #ff0000; /* Light gray background for the track */
+}
+
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
