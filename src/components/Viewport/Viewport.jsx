@@ -3,11 +3,16 @@ import axios from "axios"; // For fetching Pexels videos
 import { MdArrowUpward, MdArrowDownward } from "react-icons/md";
 import { FaPause, FaPlay } from "react-icons/fa6";
 import useSidebarStore from "../store/store";
-
+import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { BiCommentDetail } from "react-icons/bi";
+import { IoIosShareAlt } from "react-icons/io";
+import { HiOutlineDotsVertical } from "react-icons/hi";
 const Viewport = () => {
   const [videos, setVideos] = useState([]); // Array to store fetched videos
   const [currentIndex, setCurrentIndex] = useState(0); // Index of currently displayed video
   const [isPlaying, setIsPlaying] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [unliked, setUnLiked] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const videoRef = useRef(null);
@@ -149,12 +154,43 @@ const Viewport = () => {
           </div>
         )}
       </div>
-      <div className="flex flex-col w-24">
-        {/* {videos && videos[currentIndex].url && (<>
-        <p className="text-white uppercase text-3xl">
-          {getFormattedTitle(videos[currentIndex].url.slice(29)) && "N/A"}
+      <div className="flex flex-col w-[300px]">
+        {videos[currentIndex] && (<>
+        <p className="text-white uppercase text-xl">
+          {getFormattedTitle(videos[currentIndex].url.slice(29))}
         </p>
-        <p className="text-white text-3xl">{videos[currentIndex].user.name && "N/A"}</p></>)} */}
+        <p className="text-[#ffffffac] text-base">By @{videos[currentIndex].user.name}</p></>)}
+        <div className="mt-10 flex flex-col w-10 gap-6 ">
+            <div className="flex flex-col justify-start items-center gap-3">
+            <button onClick={()=>{setLiked(!liked);setUnLiked(false)}} className={`flex justify-center items-center p-2 text-2xl ${liked ? "bg-[#1688e0e6]": "bg-[#ffffff45]"}  rounded-full`}>
+            <AiOutlineLike/>
+            </button>
+            {liked ? "1": "0"}
+            </div>
+            <div className="flex flex-col justify-start items-center gap-3">
+            <button onClick={()=>{setUnLiked(!unliked);setLiked(false)}}  className={`flex justify-center items-center p-2 text-2xl ${unliked ? "bg-[#e04516e6]": "bg-[#ffffff45]"}  rounded-full`}>
+            <AiOutlineDislike/>
+            </button>
+            {unliked ? "1": "0"}
+            </div>
+            <div className="flex flex-col justify-start items-center gap-3">
+            <button className="flex justify-center items-center p-2 text-2xl bg-[#ffffff45] rounded-full">
+            <BiCommentDetail/>
+            </button>
+            807
+            </div>
+            <div className="flex flex-col justify-start items-center gap-3">
+            <button className="flex justify-center items-center p-2 text-2xl bg-[#ffffff45] rounded-full">
+            <IoIosShareAlt/>
+            </button>
+            Share
+            </div>
+            <div className="flex flex-col justify-start items-center gap-3">
+            <button className="flex justify-center items-center p-2 text-2xl bg-[#ffffff45] rounded-full">
+            <HiOutlineDotsVertical/>
+            </button>
+            </div>
+        </div>
       </div>
     </div>
   );
