@@ -38,7 +38,3 @@ code {
 .custom-slider::-moz-range-track { /* Optional customization for the track */
   background-color: #ff0000; /* Light gray background for the track */
 }
-
-
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
