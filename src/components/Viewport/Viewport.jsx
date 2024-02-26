@@ -7,6 +7,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { IoIosShareAlt } from "react-icons/io";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import ReactSlider from "react-slider";
 const Viewport = () => {
   const [videos, setVideos] = useState([]); // Array to store fetched videos
   const [currentIndex, setCurrentIndex] = useState(0); // Index of currently displayed video
@@ -143,53 +144,81 @@ const Viewport = () => {
               onDurationChange={handleDurationChange}
             />
             <div className="bottom-0 w-full absolute flex items-center">
-              <input
+              <ReactSlider
+                className="custom-slider w-full"
+                trackClassName="customSlider-track"
+                thumbClassName="customSlider-thumb"
+                value={(currentTime / duration) * 100 || 0}
+                onChange={(value) => handleSliderChange(value)}
+              />
+              {/* <input
                 type="range"
                 id="slider"
                 value={(currentTime / duration) * 100 || 0}
                 onChange={(e) => handleSliderChange(e.target.value)}
                 className="custom-slider w-full"
-              />
+              /> */}
             </div>
           </div>
         )}
       </div>
       <div className="flex flex-col w-[300px]">
-        {videos[currentIndex] && (<>
-        <p className="text-white uppercase text-xl">
-          {getFormattedTitle(videos[currentIndex].url.slice(29))}
-        </p>
-        <p className="text-[#ffffffac] text-base">By @{videos[currentIndex].user.name}</p></>)}
+        {videos[currentIndex] && (
+          <>
+            <p className="text-white uppercase text-xl">
+              {getFormattedTitle(videos[currentIndex].url.slice(29))}
+            </p>
+            <p className="text-[#ffffffac] text-base">
+              By @{videos[currentIndex].user.name}
+            </p>
+          </>
+        )}
         <div className="mt-10 flex flex-col w-10 gap-6 ">
-            <div className="flex flex-col justify-start items-center gap-3">
-            <button onClick={()=>{setLiked(!liked);setUnLiked(false)}} className={`flex justify-center items-center p-2 text-2xl ${liked ? "bg-[#1688e0e6]": "bg-[#ffffff45]"}  rounded-full`}>
-            <AiOutlineLike/>
+          <div className="flex flex-col justify-start items-center gap-3">
+            <button
+              onClick={() => {
+                setLiked(!liked);
+                setUnLiked(false);
+              }}
+              className={`flex justify-center items-center p-2 text-2xl ${
+                liked ? "bg-[#1688e0e6]" : "bg-[#ffffff45]"
+              }  rounded-full`}
+            >
+              <AiOutlineLike />
             </button>
-            {liked ? "1": "0"}
-            </div>
-            <div className="flex flex-col justify-start items-center gap-3">
-            <button onClick={()=>{setUnLiked(!unliked);setLiked(false)}}  className={`flex justify-center items-center p-2 text-2xl ${unliked ? "bg-[#e04516e6]": "bg-[#ffffff45]"}  rounded-full`}>
-            <AiOutlineDislike/>
+            {liked ? "1" : "0"}
+          </div>
+          <div className="flex flex-col justify-start items-center gap-3">
+            <button
+              onClick={() => {
+                setUnLiked(!unliked);
+                setLiked(false);
+              }}
+              className={`flex justify-center items-center p-2 text-2xl ${
+                unliked ? "bg-[#e04516e6]" : "bg-[#ffffff45]"
+              }  rounded-full`}
+            >
+              <AiOutlineDislike />
             </button>
-            {unliked ? "1": "0"}
-            </div>
-            <div className="flex flex-col justify-start items-center gap-3">
+            {unliked ? "1" : "0"}
+          </div>
+          <div className="flex flex-col justify-start items-center gap-3">
             <button className="flex justify-center items-center p-2 text-2xl bg-[#ffffff45] rounded-full">
-            <BiCommentDetail/>
+              <BiCommentDetail />
             </button>
             807
-            </div>
-            <div className="flex flex-col justify-start items-center gap-3">
+          </div>
+          <div className="flex flex-col justify-start items-center gap-3">
             <button className="flex justify-center items-center p-2 text-2xl bg-[#ffffff45] rounded-full">
-            <IoIosShareAlt/>
+              <IoIosShareAlt />
             </button>
             Share
-            </div>
-            <div className="flex flex-col justify-start items-center gap-3">
+          </div>
+          <div className="flex flex-col justify-start items-center gap-3">
             <button className="flex justify-center items-center p-2 text-2xl bg-[#ffffff45] rounded-full">
-            <HiOutlineDotsVertical/>
+              <HiOutlineDotsVertical />
             </button>
-            </div>
+          </div>
         </div>
       </div>
     </div>
