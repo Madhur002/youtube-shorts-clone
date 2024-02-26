@@ -8,6 +8,10 @@ import { BiCommentDetail } from "react-icons/bi";
 import { IoIosShareAlt } from "react-icons/io";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 import ReactSlider from "react-slider";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper-bundle.css";
+import "swiper/scss";
+import { Mousewheel, Pagination } from 'swiper/modules';
 const Viewport = () => {
   const [videos, setVideos] = useState([]); // Array to store fetched videos
   const [currentIndex, setCurrentIndex] = useState(0); // Index of currently displayed video
@@ -134,15 +138,29 @@ const Viewport = () => {
                 {isPlaying ? <FaPause /> : <FaPlay />}
               </button>
             </div>
-            <video
-              onClick={togglePlay}
-              ref={videoRef}
-              className="w-full border-none h-full object-cover rounded-t-2xl"
-              src={videos[currentIndex].video_files[0].link}
-              //   controls
-              onTimeUpdate={handleTimeUpdate}
-              onDurationChange={handleDurationChange}
-            />
+            <Swiper
+              style={{ height: "100%", width: "100%" }}
+              direction={"vertical"}
+              slidesPerView={1}
+              spaceBetween={30}
+              mousewheel={true}
+              modules={[Mousewheel, Pagination]}
+            >
+              {videos.map((video, index) => (
+                <SwiperSlide key={index} style={{ height: "100%", width: "100%" }}>
+                  <video
+                    onClick={togglePlay}
+                    ref={videoRef}
+                    autoPlay
+                    loop
+                    className="w-full border-none h-full object-cover rounded-t-2xl"
+                    src={video.video_files[0].link}
+                    onTimeUpdate={handleTimeUpdate}
+                    onDurationChange={handleDurationChange}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
             <div className="bottom-0 w-full absolute flex items-center">
               <ReactSlider
                 className="custom-slider w-full"
@@ -151,13 +169,6 @@ const Viewport = () => {
                 value={(currentTime / duration) * 100 || 0}
                 onChange={(value) => handleSliderChange(value)}
               />
-              {/* <input
-                type="range"
-                id="slider"
-                value={(currentTime / duration) * 100 || 0}
-                onChange={(e) => handleSliderChange(e.target.value)}
-                className="custom-slider w-full"
-              /> */}
             </div>
           </div>
         )}
